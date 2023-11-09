@@ -24,7 +24,7 @@ export function BoardList() {
   }, []);
 
   if (boardList === null) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (
@@ -42,19 +42,19 @@ export function BoardList() {
           </Thead>
           <Tbody>
             {boardList.map((board) => (
-                <Tr
-                  _hover={{
-                    cursor: "pointer",
-                  }}
-                  key={board.id}
-                  onClick={() => navigate("/board/" + board.id)}
-                >
-                  <Td>{board.id}</Td>
-                  <Td>{board.title}</Td>
-                  <Td>{board.writer}</Td>
-                  <Td>{board.inserted}</Td>
-                </Tr>
-              ))}
+              <Tr
+                _hover={{
+                  cursor: "pointer",
+                }}
+                key={board.id}
+                onClick={() => navigate("/board/" + board.id)}
+              >
+                <Td>{board.id}</Td>
+                <Td>{board.title}</Td>
+                <Td>{board.writer}</Td>
+                <Td>{board.inserted}</Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </Box>
