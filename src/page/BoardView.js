@@ -9,7 +9,9 @@ export function BoardView() {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get("/api/board/id" + id).then((response) => setBoard(board));
+    axios
+      .get("/api/board/id/" + id)
+      .then((response) => setBoard(response.data));
   }, []);
 
   if (board === null) {
@@ -19,7 +21,7 @@ export function BoardView() {
   return (
     <Box>
       <h1>글 보기</h1>
-      <p>번호 : {board.id}</p>
+      <p>번호: {board.id}</p>
       <p>제목 : {board.title}</p>
       <p>본문 : {board.content}</p>
       <p>작성자 : {board.writer}</p>
