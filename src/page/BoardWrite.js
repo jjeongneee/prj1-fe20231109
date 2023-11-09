@@ -15,7 +15,7 @@ export function BoardWrite() {
   const [content, setContent] = useState("");
   const [writer, setWriter] = useState("");
 
-  let toast = useToast();
+  const toast = useToast();
 
   function handleSubmit() {
     axios
