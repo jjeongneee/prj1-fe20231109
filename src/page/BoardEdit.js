@@ -1,5 +1,6 @@
 import {
-  Box, Button,
+  Box,
+  Button,
   FormControl,
   FormLabel,
   Input,
@@ -7,7 +8,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
 import axios from "axios";
 
@@ -67,7 +68,7 @@ export function BoardEdit() {
       </FormControl>
       <Button colorScheme="blue">저장</Button>
       {/* navigate(-1) : 이전 경로로 이동 */}
-      <Button onClick={()=> navigate(-1)}>취소</Button>
+      <Button onClick={() => navigate(-1)}>취소</Button>
     </Box>
   );
 }
