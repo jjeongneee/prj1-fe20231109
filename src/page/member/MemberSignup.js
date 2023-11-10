@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function MemberSignup() {
   const [id, setId] = useState("");
@@ -49,12 +49,12 @@ export function MemberSignup() {
         password,
         email,
       })
-      .then(() =>{
+      .then(() => {
         // toast
         // navigate
         toast({
           description: "회원가입이 완료되었습니다.",
-          status: "success"
+          status: "success",
         });
         navigate("/");
       })
@@ -71,7 +71,7 @@ export function MemberSignup() {
             status: "error",
           });
         }
-      })
+      });
   }
 
   function handleIdCheck() {
