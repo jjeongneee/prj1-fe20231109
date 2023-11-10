@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-import * as querystring from "querystring";
 
 export function MemberSignup() {
   const [id, setId] = useState("");
@@ -49,8 +48,6 @@ export function MemberSignup() {
     const searchParam = new URLSearchParams();
     searchParam.set("id", id);
 
-    // console.log(searchParam.toString());
-
     axios
       .get("/api/member/check?" + searchParam.toString())
       .then(() => {
@@ -76,7 +73,7 @@ export function MemberSignup() {
               setIdAvailable(false);
             }}
           />
-          <Button onClick={handleIdCheck}>중복 확인</Button>
+          <Button onClick={handleIdCheck}>중복확인</Button>
         </Flex>
         <FormErrorMessage>ID 중복체크를 해주세요.</FormErrorMessage>
       </FormControl>
@@ -87,7 +84,8 @@ export function MemberSignup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormErrorMessage>암호를 입력해주세요.</FormErrorMessage>
+
+        <FormErrorMessage>암호를 입력해 주세요.</FormErrorMessage>
       </FormControl>
       <FormControl isInvalid={password != passwordCheck}>
         <FormLabel>password 확인</FormLabel>
