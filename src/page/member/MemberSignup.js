@@ -44,7 +44,7 @@ export function MemberSignup() {
         <FormLabel>id</FormLabel>
         <Input value={id} onChange={(e) => setId(e.target.value)} />
       </FormControl>
-      <FormControl>
+      <FormControl isInvalid={password.length === 0}>
         <FormLabel>password</FormLabel>
         <Input
           type="password"
