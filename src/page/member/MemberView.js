@@ -19,6 +19,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
+// 컴포넌트 상태:
+// 멤버 상태를 관리하며 초기에는 null로 설정됩니다.
+// 상태를 관리하기 위해 React 훅을 사용합니다.
+
 export function MemberView() {
   const [member, setMember] = useState(null);
   // /member?id=userid
@@ -29,6 +33,7 @@ export function MemberView() {
   const navigate = useNavigate();
   const toast = useToast();
 
+  // 컴포넌트가 마운트될 때 멤버 정보를 가져오기 위해 useEffect 훅을 사용합니다.
   useEffect(() => {
     axios
       .get("/api/member?" + params.toString())
