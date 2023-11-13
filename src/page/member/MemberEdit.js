@@ -5,7 +5,8 @@ import {
   Box,
   Button,
   Flex,
-  FormControl, FormHelperText,
+  FormControl,
+  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -27,6 +28,7 @@ export function MemberEdit() {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [emailAvailable, setEmailAvailable] = useState(false);
   const [nickName, setNickName] = useState("");
+  const [nickNameAvailable, setNickNameAvailable] = useState(false);
 
   const toast = useToast();
   const [params] = useSearchParams();
@@ -62,7 +64,7 @@ export function MemberEdit() {
   let nickNameChecked = sameOriginNickName || nickNameAvailable;
 
   // 암호가 없으면 기존 암호
-  // 암호를 작성하면 새 암호, 암호 확인 체크
+  // 암호를 작성하면 새 암호, 암호확인 체크
   let passwordChecked = false;
 
   if (passwordCheck === password) {
@@ -102,8 +104,8 @@ export function MemberEdit() {
   }
 
   function handleSubmit() {
-    // 업데이트할땐 put 방식 많이 씀
-    // put /api/member/edit {id, password, email, nickName}
+    // put /api/member/edit
+    // {id, password, email, nickName}
 
     axios
       .put("/api/member/edit", { id: member.id, password, email, nickName })

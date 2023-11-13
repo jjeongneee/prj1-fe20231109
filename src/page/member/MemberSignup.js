@@ -70,7 +70,7 @@ export function MemberSignup() {
         // toast
         if (error.response.status === 400) {
           toast({
-            description: "입력 값을 확인해주세요",
+            description: "입력값을 확인해주세요.",
             status: "error",
           });
         } else {
@@ -91,7 +91,7 @@ export function MemberSignup() {
       .then(() => {
         setIdAvailable(false);
         toast({
-          description: "이미 사용중인 ID입니다.",
+          description: "이미 사용 중인 ID입니다.",
           status: "warning",
         });
       })
@@ -115,7 +115,7 @@ export function MemberSignup() {
       .then(() => {
         setEmailAvailable(false);
         toast({
-          description: "이미 사용 중인 email 입니다.",
+          description: "이미 사용 중인 email입니다.",
           status: "warning",
         });
       })
@@ -123,7 +123,7 @@ export function MemberSignup() {
         if (error.response.status === 404) {
           setEmailAvailable(true);
           toast({
-            description: "사용 가능한 email 입니다.",
+            description: "사용 가능한 email입니다.",
             status: "success",
           });
         }
@@ -218,7 +218,7 @@ export function MemberSignup() {
               setEmail(e.target.value);
             }}
           />
-          <Button onClick={handleEmailCheck}>중복 체크</Button>
+          <Button onClick={handleEmailCheck}>중복체크</Button>
         </Flex>
         <FormErrorMessage>email 중복 체크를 해주세요.</FormErrorMessage>
       </FormControl>

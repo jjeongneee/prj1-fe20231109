@@ -3,11 +3,11 @@ import {
   Box,
   Spinner,
   Table,
-  Tbody,
-  Td,
-  Th,
   Thead,
   Tr,
+  Th,
+  Tbody,
+  Td,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ export function MemberList() {
     axios.get("/api/member/list").then((response) => setList(response.data));
   }, []);
 
-  if (list == null) {
+  if (list === null) {
     return <Spinner />;
   }
 
