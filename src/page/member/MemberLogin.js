@@ -1,12 +1,14 @@
 import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { logDOM } from "@testing-library/react";
 
 export function MemberLogin() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   function handleLogin() {
+    // TODO : 로그인 후 성공, 실패, 완료 코드 추가
     axios
       .post("/api/member/login", { id, password })
       .then(() => console.log("good"))
