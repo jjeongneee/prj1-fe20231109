@@ -50,13 +50,29 @@ function App(props) {
     return login !== "";
   }
 
+  // 로그인 된 계정이 aimin인지 확인
+  function isAdmin() {
+    if (login.auth) {
+      return login.auth.some((elem) => elem.name === "admin");
+    }
+    return false;
+  }
+
+  // function isManager() {
+  //   return login.auth.some((elem) => elem.name === "manager");
+  // }
+  //
+  // function hasAuth() {
+  //   return login.auth.some((elem) => elem.name === auth);
+  // }
+
   function hasAccess(userId) {
     return login.id === userId;
   }
 
   return (
     <LoginContext.Provider
-      value={{ login, fetchLogin, isAuthenticated, hasAccess }}
+      value={{ login, fetchLogin, isAuthenticated, hasAccess, isAdmin }}
     >
       <RouterProvider router={routes} />;
     </LoginContext.Provider>
