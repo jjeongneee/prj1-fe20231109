@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -16,6 +16,7 @@ import { MemberView } from "./page/member/MemberView";
 import { MemberEdit } from "./page/member/MemberEdit";
 import { MemberLogin } from "./page/member/MemberLogin";
 import LogInProvider from "./component/LogInProvider";
+import { CommentView } from "./page/comment/CommentView";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const routes = createBrowserRouter(
       <Route path="member" element={<MemberView />} />
       <Route path="member/edit" element={<MemberEdit />} />
       <Route path="login" element={<MemberLogin />} />
+      <Route path="comment" element={<CommentView />} />
     </Route>,
   ),
 );

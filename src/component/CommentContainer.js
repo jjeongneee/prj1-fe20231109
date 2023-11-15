@@ -31,7 +31,22 @@ function CommentForm({ boardId, isSubmitting, onSubmit }) {
   );
 }
 
-function CommentList({ commentList }) {
+function CommentList({ commentList, onDeleteComment }) {
+  const handleDelete = async (commentId) => {
+    try {
+      // 댓글 삭제 API 엔드포인트 호출
+      await axios.delete(`/api/comment/delete/${commentId}`);
+
+      // 삭제 후 commentList 갱신 (임시로 서버 요청 성공 여부를 가정)
+      const updatedCommentList = commentList.filter(
+        (comment) => comment.id !== commentId,
+      );
+      onDeleteComment(updatedCommentList);
+    } catch (error) {
+      console.error("댓글 삭제 오류:", error);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -48,6 +63,12 @@ function CommentList({ commentList }) {
               <Text sx={{ whiteSpace: "pre-wrap" }} pt="2" fontSize="sm">
                 {comment.comment}
               </Text>
+              <Button
+                colorScheme="red"
+                onClick={() => handleDelete(comment.id)}
+              >
+                삭제
+              </Button>
             </Box>
           ))}
         </Stack>
@@ -58,7 +79,6 @@ function CommentList({ commentList }) {
 
 export function CommentContainer({ boardId }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
@@ -80,6 +100,13 @@ export function CommentContainer({ boardId }) {
       .finally(() => setIsSubmitting(false));
   }
 
+  const handleDeleteComment = (deletedCommentId) => {
+    // 삭제된 댓글을 필터링하여 commentList를 업데이트합니다.
+    setCommentList((prevCommentList) =>
+      prevCommentList.filter((comment) => comment.id !== deletedCommentId),
+    );
+  };
+
   return (
     <Box>
       <CommentForm
@@ -87,7 +114,11 @@ export function CommentContainer({ boardId }) {
         isSubmitting={isSubmitting}
         onSubmit={handleSubmit}
       />
-      <CommentList boardId={boardId} commentList={commentList} />
+      <CommentList
+        boardId={boardId}
+        commentList={commentList}
+        onDeleteComment={handleDeleteComment}
+      />
     </Box>
   );
 }
