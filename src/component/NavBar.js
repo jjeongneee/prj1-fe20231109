@@ -11,6 +11,12 @@ export function NavBar() {
 
   const navigate = useNavigate();
 
+  const urlParams = new URLSearchParams();
+
+  if (login !== "") {
+    urlParams.set("id", login.id);
+  }
+
   // 화면 이동 필요한게 아니니 handleLogout
   function handleLogout() {
     // TODO : 로그아웃 후 할 일 추가
@@ -37,6 +43,11 @@ export function NavBar() {
       )}
       {isAdmin() && (
         <Button onClick={() => navigate("/member/list")}>회원목록</Button>
+      )}
+      {isAuthenticated() && (
+        <Button onClick={() => navigate("/member?" + urlParams.toString())}>
+          회원정보
+        </Button>
       )}
       {isAuthenticated() || (
         <Button onClick={() => navigate("/login")}>로그인</Button>
