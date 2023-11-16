@@ -1,7 +1,7 @@
 import { Button, Flex, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LoginContext } from "./LogInProvider";
 
 export function NavBar() {
@@ -13,23 +13,24 @@ export function NavBar() {
 
   const urlParams = new URLSearchParams();
 
+  const location = useLocation();
+
+  useEffect(() => {
+    fetchLogin();
+  }, [location]);
+
   if (login !== "") {
     urlParams.set("id", login.id);
   }
 
-  // 화면 이동 필요한게 아니니 handleLogout
   function handleLogout() {
-    // TODO : 로그아웃 후 할 일 추가
-    axios
-      .post("/api/member/logout")
-      .then(() => {
-        toast({
-          description: "로그아웃 되었습니다.",
-          status: "info",
-        });
-        navigate("/");
-      })
-      .finally(() => fetchLogin());
+    axios.post("/api/member/logout").then(() => {
+      toast({
+        description: "로그아웃 되었습니다.",
+        status: "info",
+      });
+      navigate("/");
+    });
   }
 
   return (
