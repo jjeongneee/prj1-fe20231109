@@ -21,6 +21,7 @@ import {
   Text,
   useDisclosure,
   useToast,
+  Tooltip,
 } from "@chakra-ui/react";
 import { LoginContext } from "../../component/LogInProvider";
 import { CommentContainer } from "../../component/CommentContainer";
@@ -30,16 +31,20 @@ import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
 import * as PropTypes from "prop-types";
 
 function LikeContainer({ like, onClick }) {
+  const { isAuthenticated } = useContext(LoginContext);
+
   if (like === null) {
     return <Spinner />;
   }
 
   return (
     <Flex gap={2}>
-      <Button variant="ghost" size="xl" onClick={onClick}>
-        {like.like && <FontAwesomeIcon icon={fullHeart} size="xl" />}
-        {like.like || <FontAwesomeIcon icon={emptyHeart} size="xl" />}
-      </Button>
+      <Tooltip isDisabled={isAuthenticated()} hasArrow label={"로그인 하세요."}>
+        <Button variant="ghost" size="xl" onClick={onClick}>
+          {like.like && <FontAwesomeIcon icon={fullHeart} size="xl" />}
+          {like.like || <FontAwesomeIcon icon={emptyHeart} size="xl" />}
+        </Button>
+      </Tooltip>
       <Heading size="xl">{like.countLike}</Heading>
     </Flex>
   );
