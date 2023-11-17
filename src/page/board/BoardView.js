@@ -17,15 +17,15 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
-  Text,
   Textarea,
+  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { LoginContext } from "../../component/LogInProvider";
 import { CommentContainer } from "../../component/CommentContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import * as PropTypes from "prop-types";
 
 function LikeContainer({ like, onClick }) {
