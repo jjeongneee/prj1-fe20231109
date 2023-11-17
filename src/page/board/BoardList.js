@@ -14,6 +14,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ChatIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export function BoardList() {
   const [boardList, setBoardList] = useState(null);
@@ -67,7 +68,7 @@ export function BoardList() {
                   )}
                 </Td>
                 <Td>{board.nickName}</Td>
-                <Td>{board.inserted}</Td>
+                <Td>{board.ago}</Td>
               </Tr>
             ))}
           </Tbody>
