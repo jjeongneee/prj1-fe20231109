@@ -22,6 +22,7 @@ import {
   useDisclosure,
   useToast,
   Tooltip,
+  Image,
 } from "@chakra-ui/react";
 import { LoginContext } from "../../component/LogInProvider";
 import { CommentContainer } from "../../component/CommentContainer";
@@ -119,6 +120,13 @@ export function BoardView() {
         <FormLabel>본문</FormLabel>
         <Textarea value={board.content} readOnly />
       </FormControl>
+
+      {/* 이미지 출력 */}
+      {board.fileNames.map((name) => (
+        <Box my="5px" border="3px solid black">
+          <Image width="100%" src={name} />
+        </Box>
+      ))}
       <FormControl>
         <FormLabel>작성자</FormLabel>
         <Input value={board.nickName} readOnly />
