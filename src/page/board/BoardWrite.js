@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 export function BoardWrite() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [file, setFile] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toast = useToast();
@@ -22,9 +23,10 @@ export function BoardWrite() {
   function handleSubmit() {
     setIsSubmitting(true);
     axios
-      .post("/api/board/add", {
+      .postForm("/api/board/add", {
         title,
         content,
+        file,
       })
       .then(() => {
         toast({
@@ -70,7 +72,7 @@ export function BoardWrite() {
           <Input
             type="file"
             accept="image/*"
-            onChange={(e) => console.log(e.target.files[0])}
+            onChange={(e) => setFile(e.target.files[0])}
           />
         </FormControl>
 
