@@ -8,6 +8,7 @@ import {
   FormControl,
   FormLabel,
   Heading,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -18,18 +19,15 @@ import {
   ModalOverlay,
   Spinner,
   Textarea,
-  Text,
+  Tooltip,
   useDisclosure,
   useToast,
-  Tooltip,
-  Image,
 } from "@chakra-ui/react";
 import { LoginContext } from "../../component/LogInProvider";
 import { CommentContainer } from "../../component/CommentContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
-import * as PropTypes from "prop-types";
 
 function LikeContainer({ like, onClick }) {
   const { isAuthenticated } = useContext(LoginContext);
@@ -46,7 +44,7 @@ function LikeContainer({ like, onClick }) {
           {like.like || <FontAwesomeIcon icon={emptyHeart} size="xl" />}
         </Button>
       </Tooltip>
-      <Heading size="xl">{like.countLike}</Heading>
+      <Heading size="lg">{like.countLike}</Heading>
     </Flex>
   );
 }
@@ -127,6 +125,7 @@ export function BoardView() {
           <Image width="100%" src={file.url} alt={file.name} />
         </Box>
       ))}
+
       <FormControl>
         <FormLabel>작성자</FormLabel>
         <Input value={board.nickName} readOnly />
