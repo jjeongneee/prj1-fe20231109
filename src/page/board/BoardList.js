@@ -3,7 +3,9 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   Flex,
+  Heading,
   Input,
   Select,
   Spinner,
@@ -22,9 +24,48 @@ import {
   faAngleLeft,
   faAngleRight,
   faHeart,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import * as PropTypes from "prop-types";
 import { faImages } from "@fortawesome/free-regular-svg-icons";
+
+function SearchComponent() {
+  const [keyword, setKeyword] = useState("");
+  const [category, setCategory] = useState("all");
+  const navigate = useNavigate();
+
+  function handleSearch() {
+    // /?k=keyword&c=all
+    const params = new URLSearchParams();
+    params.set("k", keyword);
+    params.set("c", category);
+
+    navigate("/?" + params);
+  }
+
+  return (
+    <Center mt={8} mb={20}>
+      <Flex gap={1}>
+        <Box>
+          <Select
+            defaultValue="all"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="all">전체</option>
+            <option value="title">제목</option>
+            <option value="content">본문</option>
+          </Select>
+        </Box>
+        <Box>
+          <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+        </Box>
+        <Button onClick={handleSearch}>
+          <FontAwesomeIcon icon={faSearch} />
+        </Button>
+      </Flex>
+    </Center>
+  );
+}
 
 function PageButton({ variant, pageNumber, children }) {
   const [params] = useSearchParams();
@@ -52,60 +93,33 @@ function Pagination({ pageInfo }) {
   }
 
   return (
-    <Box>
-      {pageInfo.prevPageNumber && (
-        <PageButton variant="ghost" pageNumber={pageInfo.prevPageNumber}>
-          <FontAwesomeIcon icon={faAngleLeft} />
-        </PageButton>
-      )}
+    <Center mt={5} mb={40}>
+      <Box>
+        {pageInfo.prevPageNumber && (
+          <PageButton variant="ghost" pageNumber={pageInfo.prevPageNumber}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </PageButton>
+        )}
 
-      {pageNumbers.map((pageNumber) => (
-        <PageButton
-          key={pageNumber}
-          variant={
-            pageNumber === pageInfo.currentPageNumber ? "solid" : "ghost"
-          }
-          pageNumber={pageNumber}
-        >
-          {pageNumber}
-        </PageButton>
-      ))}
+        {pageNumbers.map((pageNumber) => (
+          <PageButton
+            key={pageNumber}
+            variant={
+              pageNumber === pageInfo.currentPageNumber ? "solid" : "ghost"
+            }
+            pageNumber={pageNumber}
+          >
+            {pageNumber}
+          </PageButton>
+        ))}
 
-      {pageInfo.nextPageNumber && (
-        <PageButton variant="ghost" pageNumber={pageInfo.nextPageNumber}>
-          <FontAwesomeIcon icon={faAngleRight} />
-        </PageButton>
-      )}
-    </Box>
-  );
-}
-
-function SearchComponent() {
-  const [keyword, setKeyword] = useState("");
-  const [category, setCategory] = useState("all");
-  const navigate = useNavigate();
-
-  function handleSearch() {
-    // /?k=keyword&c=all
-    const params = new URLSearchParams();
-    params.set("k", keyword);
-    params.set("c", category);
-
-    navigate("/?" + params);
-  }
-
-  return (
-    <Flex>
-      <Select onChange={(e) => setCategory(e.target.value)}>
-        <option selected value="all">
-          전체
-        </option>
-        <option value="title">제목</option>
-        <option value="content">본문</option>
-      </Select>
-      <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
-      <Button onClick={handleSearch}>검색</Button>
-    </Flex>
+        {pageInfo.nextPageNumber && (
+          <PageButton variant="ghost" pageNumber={pageInfo.nextPageNumber}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </PageButton>
+        )}
+      </Box>
+    </Center>
   );
 }
 
@@ -130,18 +144,18 @@ export function BoardList() {
 
   return (
     <Box>
-      <h1>게시물 목록</h1>
-      <Box>
+      <Heading>게시물 목록</Heading>
+      <Box mt={5}>
         <Table>
           <Thead>
             <Tr>
-              <Th>id</Th>
-              <Th>
+              <Th w={"100px"}>id</Th>
+              <Th w={"70px"}>
                 <FontAwesomeIcon icon={faHeart} />
               </Th>
               <Th>title</Th>
-              <Th>by</Th>
-              <Th>at</Th>
+              <Th w={"150px"}>by</Th>
+              <Th w={"150px"}>at</Th>
             </Tr>
           </Thead>
           <Tbody>

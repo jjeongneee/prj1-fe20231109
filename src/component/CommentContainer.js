@@ -4,6 +4,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Center,
   Flex,
   Heading,
   Modal,
@@ -24,6 +25,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DeleteIcon, EditIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import { LoginContext } from "./LogInProvider";
+import { faComments, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CommentForm({ boardId, isSubmitting, onSubmit }) {
   const [comment, setComment] = useState("");
@@ -34,10 +37,18 @@ function CommentForm({ boardId, isSubmitting, onSubmit }) {
 
   return (
     <Box>
-      <Textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-      <Button isDisabled={isSubmitting} onClick={handleSubmit}>
-        쓰기
-      </Button>
+      <Flex>
+        <Textarea
+          placeholder="댓글을 작성해주세요."
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <Center isDisabled={isSubmitting} onClick={handleSubmit}>
+          <Button h={"full"} size={"lg"}>
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </Button>
+        </Center>
+      </Flex>
     </Box>
   );
 }
@@ -119,6 +130,7 @@ function CommentItem({
           <Box>
             {isEditing || (
               <Button
+                variant="ghost"
                 size="xs"
                 colorScheme="purple"
                 onClick={() => setIsEditing(true)}
@@ -128,6 +140,7 @@ function CommentItem({
             )}
             {isEditing && (
               <Button
+                variant="ghost"
                 size="xs"
                 colorScheme="gray"
                 onClick={() => setIsEditing(false)}
@@ -136,6 +149,7 @@ function CommentItem({
               </Button>
             )}
             <Button
+              variant="ghost"
               onClick={() => onDeleteModalOpen(comment.id)}
               size="xs"
               colorScheme="red"
@@ -158,24 +172,26 @@ function CommentList({
   const { hasAccess } = useContext(LoginContext);
 
   return (
-    <Card>
-      <CardHeader>
-        <Heading size="md">댓글 리스트</Heading>
-      </CardHeader>
-      <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
-          {commentList.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              isSubmitting={isSubmitting}
-              setIsSubmitting={setIsSubmitting}
-              comment={comment}
-              onDeleteModalOpen={onDeleteModalOpen}
-            />
-          ))}
-        </Stack>
-      </CardBody>
-    </Card>
+    <Center mt={20}>
+      <Card w={"lg"}>
+        <CardHeader>
+          <Heading size="md">댓글 리스트</Heading>
+        </CardHeader>
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing="4">
+            {commentList.map((comment) => (
+              <CommentItem
+                key={comment.id}
+                isSubmitting={isSubmitting}
+                setIsSubmitting={setIsSubmitting}
+                comment={comment}
+                onDeleteModalOpen={onDeleteModalOpen}
+              />
+            ))}
+          </Stack>
+        </CardBody>
+      </Card>
+    </Center>
   );
 }
 
@@ -262,12 +278,24 @@ export function CommentContainer({ boardId }) {
   }
   return (
     <Box>
+      <Center mt={10}>
+        <Box w={"lg"}>
+          <Heading>
+            <FontAwesomeIcon icon={faComments} /> COMMENTS
+          </Heading>
+        </Box>
+      </Center>
+
       {isAuthenticated() && (
-        <CommentForm
-          boardId={boardId}
-          isSubmitting={isSubmitting}
-          onSubmit={handleSubmit}
-        />
+        <Center mt={10}>
+          <Box w={"lg"}>
+            <CommentForm
+              boardId={boardId}
+              isSubmitting={isSubmitting}
+              onSubmit={handleSubmit}
+            />
+          </Box>
+        </Center>
       )}
       <CommentList
         boardId={boardId}
